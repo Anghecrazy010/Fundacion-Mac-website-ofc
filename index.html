@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Fundación MAC CF, club de fútbol amateur de Mazatlán creado entre amigos en 2025. Resultados, cancha y redes sociales.">
+<meta name="theme-color" content="#010e21">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Fundación MAC CF">
+<meta property="og:description" content="Club de fútbol amateur de Mazatlán. Resultados, cancha y redes sociales.">
+<!-- Cuando tengas la dirección final de la página, agrega la imagen para WhatsApp/Facebook (debe ser una URL completa):
+<meta property="og:image" content="https://TU-USUARIO.github.io/fundacion-mac/img/logo.jpg"> -->
+<link rel="icon" href="img/logo.jpg">
+<title>Fundación MAC CF</title>
+<style>
+:root { color-scheme: light; }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Big+Shoulders+Display:wght@700;800;900&display=swap">
+<style>
+/* Layout: navy hero with the crest on the right, then a club fact sheet, three values, venue note and social links in a single column of bands. */
+:root {
+  --ink: #010e21;          /* crest navy, fixed in both themes */
+  --on-ink: #f6f3ea;
+  --gold: #d3a54a;         /* crest gold, fixed */
+  --bg: #f5f3ec;
+  --surface: #ffffff;
+  --fg: #0b1a33;
+  --muted: #4d5a70;
+  --line: #d9d5c6;
+  --accent: #8a6516;       /* darker gold for text on light */
+  --accent-fill: #d3a54a;
+  --on-accent: #010e21;
+  --font-display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --font-body: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --gutter: 20px;
+  --win: #1d6b3a; --draw: #7a5a10; --loss: #a3262a;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #020f22; --surface: #08182f; --fg: #f1eee4; --muted: #a8b2c4;
+    --line: #1c2c47; --accent: #d9ae55; --accent-fill: #d3a54a; --on-accent: #010e21;
+    --win: #6fcf97; --draw: #e0b65c; --loss: #ff8f89;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #020f22; --surface: #08182f; --fg: #f1eee4; --muted: #a8b2c4;
+  --line: #1c2c47; --accent: #d9ae55; --accent-fill: #d3a54a; --on-accent: #010e21;
+  --win: #6fcf97; --draw: #e0b65c; --loss: #ff8f89;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 17px; line-height: 1.6;
+  padding-inline: 0; padding-block: 0;
+}
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 0.98; text-transform: uppercase; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--accent-fill); outline-offset: 3px; }
+.wrap { width: 100%; max-width: 1080px; margin-inline: auto; padding-inline: var(--gutter); }
+.eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; }
+
+/* Hero */
+.hero { background: var(--ink); color: var(--on-ink); padding-block: 40px 56px; }
+.hero .wrap { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items: center; }
+.hero .copy { min-width: 0; display: grid; gap: 22px; }
+.hero .eyebrow { color: var(--gold); }
+.hero h1 { font-size: clamp(3.2rem, 10vw, 6.6rem); font-weight: 900; letter-spacing: 0.005em; }
+.hero h1 em { font-style: normal; color: var(--gold); display: block; }
+.hero .lede { max-width: 34em; font-size: 1.12rem; color: #d9dbe2; }
+.hero .crest { min-width: 0; justify-self: center; width: 100%; max-width: 420px; }
+.hero .crest img { display: block; width: 100%; height: auto; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px;
+  font-weight: 600; font-size: 1rem; text-decoration: none; border: 2px solid var(--gold);
+  transition: background 0.15s, color 0.15s;
+}
+.btn svg { width: 20px; height: 20px; flex: none; }
+.btn.solid { background: var(--gold); color: var(--ink); }
+.btn.solid:hover { background: #e4b95e; }
+.btn.line { color: var(--gold); }
+.btn.line:hover { background: rgba(211,165,74,0.14); }
+
+/* Bands */
+section { padding-block: 64px; }
+.band-head { display: grid; gap: 10px; margin-bottom: 32px; }
+.band-head .eyebrow { color: var(--accent); }
+.band-head h2 { font-size: clamp(2.2rem, 6vw, 3.4rem); font-weight: 800; }
+
+/* Fact sheet */
+.sheet { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 48px; align-items: start; }
+.sheet .story { display: grid; gap: 18px; max-width: 34em; }
+.sheet .story p { color: var(--fg); }
+.facts { margin: 0; border-top: 2px solid var(--fg); }
+.facts div { display: grid; grid-template-columns: 8.5em minmax(0, 1fr); gap: 16px; padding-block: 14px; border-bottom: 1px solid var(--line); }
+.facts dt { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
+.facts dd { margin: 0; font-weight: 500; overflow-wrap: anywhere; }
+
+/* Values */
+.values-band { background: var(--surface); border-block: 1px solid var(--line); }
+.values { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; }
+.values article { padding: 8px 28px 8px 0; display: grid; gap: 10px; align-content: start; }
+.values article + article { padding-left: 28px; border-left: 1px solid var(--line); }
+.values h3 { font-size: 2.3rem; font-weight: 800; color: var(--accent); }
+.values p { color: var(--muted); max-width: 22em; }
+.values-note { margin-top: 36px; font-family: var(--font-display); text-transform: uppercase; font-weight: 700; font-size: clamp(1.4rem, 4vw, 2rem); line-height: 1.1; }
+.values-note span { color: var(--accent); }
+
+/* Results */
+.results-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 20px 32px; margin-bottom: 28px; }
+.results-head .band-head { margin-bottom: 0; }
+.record { display: flex; flex-wrap: wrap; gap: 8px 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.record span { color: var(--muted); font-weight: 500; }
+.record b { font-family: var(--font-display); font-size: 1.7rem; font-weight: 800; margin-right: 4px; vertical-align: -1px; }
+.reel-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.reel-tools .order { font-size: 0.9rem; color: var(--muted); }
+.reel-btns { display: flex; gap: 8px; }
+.reel-btns button { min-height: 44px; min-width: 44px; padding: 0 14px; background: transparent; color: var(--fg); border: 2px solid var(--fg); font: 600 0.95rem var(--font-body); cursor: pointer; }
+.reel-btns button:hover { background: var(--fg); color: var(--bg); }
+.reel { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding-bottom: 12px; scrollbar-width: thin; }
+.reel figure { margin: 0; flex: 0 0 calc((100% - 48px) / 4); min-width: 0; scroll-snap-align: start; display: grid; gap: 10px; align-content: start; }
+.reel img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; background: var(--ink); }
+.reel figcaption { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 10px; font-weight: 600; }
+.pill { display: inline-block; padding: 2px 10px; border: 1.5px solid currentColor; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+.pill.victoria { color: var(--win); }
+.pill.empate { color: var(--draw); }
+.pill.derrota { color: var(--loss); }
+.table-wrap { margin-top: 36px; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+caption { text-align: left; font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding-bottom: 10px; }
+th, td { text-align: left; padding: 12px 16px 12px 0; border-bottom: 1px solid var(--line); white-space: nowrap; }
+thead th { font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border-bottom: 2px solid var(--fg); }
+td.score { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; letter-spacing: 0.04em; }
+@media (max-width: 860px) { .reel figure { flex-basis: calc((100% - 16px) / 2); } }
+@media (max-width: 480px) { .reel figure { flex-basis: 78%; } }
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.tabs button { min-height: 44px; padding: 0 20px; background: transparent; color: var(--fg); border: 2px solid var(--fg); font: 600 0.95rem var(--font-body); cursor: pointer; }
+.tabs button:hover { background: var(--line); }
+.tabs button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+
+/* Venue */
+.venue { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+.venue .info { min-width: 0; display: grid; gap: 22px; align-content: start; }
+.venue address { font-style: normal; display: grid; gap: 2px; border-left: 4px solid var(--accent-fill); padding-left: 22px; }
+.venue address strong { font-family: var(--font-display); text-transform: uppercase; font-weight: 800; font-size: 1.9rem; line-height: 1.05; }
+.venue address span { color: var(--muted); }
+.venue .hint { color: var(--muted); max-width: 30em; }
+.btn.map { background: var(--accent-fill); color: var(--on-accent); border-color: var(--accent-fill); justify-self: start; }
+.btn.map:hover { filter: brightness(1.08); }
+.mapcard { position: relative; display: block; min-width: 0; max-width: 100%; aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid var(--line); background: var(--surface); text-decoration: none; }
+.mapcard svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.mapcard .grid { stroke: var(--line); stroke-width: 2; fill: none; }
+.mapcard .road { stroke: var(--accent-fill); stroke-width: 10; fill: none; opacity: 0.55; stroke-linecap: round; }
+.mapcard .pin { fill: var(--accent-fill); }
+.mapcard .pin-dot { fill: var(--ink); }
+.mapcard .shadow { fill: var(--fg); opacity: 0.18; }
+.mapcard .cap { position: absolute; left: 0; right: 0; bottom: 0; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; padding: 14px 16px; background: var(--ink); color: var(--on-ink); }
+.mapcard .cap b { font-weight: 600; }
+.mapcard .cap span { color: var(--gold); font-weight: 600; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.mapcard:hover .cap span { text-decoration: underline; }
+
+/* Suggestions */
+.suggest { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+.suggest .info { min-width: 0; display: grid; gap: 22px; align-content: start; }
+.suggest .info p { max-width: 32em; }
+.suggest .hint { color: var(--muted); }
+@media (max-width: 860px) { .suggest { grid-template-columns: minmax(0, 1fr); gap: 28px; } }
+
+/* Social */
+.social-band { background: var(--ink); color: var(--on-ink); }
+.social-band .band-head .eyebrow { color: var(--gold); }
+.social-band .band-head p { color: #d9dbe2; max-width: 32em; }
+.social { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.social a {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 18px; align-items: center;
+  padding: 22px; border: 1px solid #1f3355; text-decoration: none; background: #04152b;
+  transition: border-color 0.15s, background 0.15s;
+}
+.social a:hover { border-color: var(--gold); background: #071d3a; }
+.social svg { width: 34px; height: 34px; color: var(--gold); }
+.social .name { font-family: var(--font-display); text-transform: uppercase; font-weight: 800; font-size: 1.6rem; line-height: 1; }
+.social .handle { color: #b7bfcf; font-size: 0.95rem; overflow-wrap: anywhere; }
+.social .go { color: var(--gold); font-weight: 600; font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; }
+
+footer { background: var(--ink); color: #9aa6bb; padding-block: 28px; font-size: 0.9rem; border-top: 1px solid #14233f; }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+
+@media (max-width: 860px) {
+  .hero .wrap, .sheet, .venue { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .hero .crest { max-width: 300px; justify-self: start; order: -1; }
+  .values { grid-template-columns: minmax(0, 1fr); }
+  .values article, .values article + article { padding: 20px 0; border-left: 0; }
+  .values article + article { border-top: 1px solid var(--line); }
+  .social { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 480px) {
+  section { padding-block: 48px; }
+  .facts div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .btn { flex: 1 1 100%; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="copy">
+      <p class="eyebrow">Club de fútbol amateur · Desde 2025</p>
+      <h1>Conectar dos pases <em>seguidos.</em></h1>
+      <p class="lede">Somos Fundación MAC CF, un equipo de amigos que juega por algo más que el marcador. Aquí está quiénes somos y dónde seguirnos.</p>
+      <div class="actions">
+        <a class="btn solid" href="https://www.instagram.com/fmac_fc" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+          Instagram
+        </a>
+        <a class="btn line" href="https://www.facebook.com/share/1Jzns3B9dS/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.2-1.3 1.4-1.3H17V2.3c-.3 0-1.3-.1-2.4-.1-2.4 0-4.1 1.5-4.1 4.2v2.1H8v3.5h2.5V22H14v-9.9h2.6l.4-3.6H14z"/></svg>
+          Facebook
+        </a>
+      </div>
+    </div>
+    <div class="crest">
+      <img src="img/logo.jpg" width="720" height="700" alt="Escudo de Fundación MAC CF: corona dorada, las letras MAC, un balón y el año 2025">
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="equipo">
+    <div class="wrap sheet">
+      <div>
+        <div class="band-head">
+          <p class="eyebrow">El equipo</p>
+          <h2>Entre amigos, desde 2025</h2>
+        </div>
+        <div class="story">
+          <p>Fundación MAC CF nació en 2025 como un equipo de fútbol amateur formado entre amigos.</p>
+          <p>No nos juntamos solo para jugar. Queremos demostrar que la fe, la paciencia y el buen humor importan más que ganar.</p>
+          <p>Síguenos en nuestro camino por conectar dos pases seguidos.</p>
+        </div>
+      </div>
+      <dl class="facts" aria-label="Ficha del equipo">
+        <div><dt>Nombre</dt><dd>Fundación MAC CF (Club de Fútbol)</dd></div>
+        <div><dt>Fundado</dt><dd>2025</dd></div>
+        <div><dt>Categoría</dt><dd>Amateur, entre amigos</dd></div>
+        <div><dt>Colores</dt><dd>Azul marino, dorado y blanco</dd></div>
+        <div><dt>Redes</dt><dd>@fmac_fc en Instagram y Facebook</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="valores" class="values-band">
+    <div class="wrap">
+      <div class="band-head">
+        <p class="eyebrow">Lo que nos mueve</p>
+        <h2>Tres cosas antes que ganar</h2>
+      </div>
+      <div class="values">
+        <article>
+          <h3>Fe</h3>
+          <p>Creer en el equipo y en el proceso, también cuando el marcador no ayuda.</p>
+        </article>
+        <article>
+          <h3>Paciencia</h3>
+          <p>Armar la jugada con calma. Un pase bien hecho y luego otro.</p>
+        </article>
+        <article>
+          <h3>Buen humor</h3>
+          <p>Jugamos con amigos y nos reímos en la cancha, gane quien gane.</p>
+        </article>
+      </div>
+      <p class="values-note">La meta de cada partido: <span>dos pases seguidos.</span></p>
+    </div>
+  </section>
+
+  <section id="resultados">
+    <div class="wrap">
+      <div class="results-head">
+        <div class="band-head">
+          <p class="eyebrow" id="eyebrow">Liga Fut 9</p>
+          <h2>Resultados</h2>
+        </div>
+        <p class="record" id="record" aria-live="polite"></p>
+      </div>
+      <div class="tabs" role="group" aria-label="Tipo de partido">
+        <button type="button" data-tipo="liga" aria-pressed="true">Liga Fut 9</button>
+        <button type="button" data-tipo="amistoso" aria-pressed="false">Amistosos</button>
+      </div>
+      <div class="reel-tools">
+        <p class="order">Del más reciente al más antiguo</p>
+        <div class="reel-btns">
+          <button type="button" id="prev" aria-label="Resultado anterior">&larr;</button>
+          <button type="button" id="next" aria-label="Resultado siguiente">&rarr;</button>
+          <button type="button" id="toggle" aria-pressed="false">Pausar</button>
+        </div>
+      </div>
+      <div class="reel" id="reel" tabindex="0" role="region" aria-label="Carrusel de resultados"></div>
+      <div class="table-wrap">
+        <table>
+          <caption id="cap">Todas las jornadas</caption>
+          <thead><tr><th scope="col" id="col1">Jornada</th><th scope="col">Resultado</th><th scope="col">Marcador (nosotros – rival)</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="cancha" class="values-band">
+    <div class="wrap venue">
+      <div class="info">
+        <div class="band-head" style="margin-bottom:0">
+          <p class="eyebrow">Dónde jugamos</p>
+          <h2>La cancha</h2>
+        </div>
+        <address>
+          <strong>Av. Ejército Mexicano</strong>
+          <span>Tellería, 82017 Mazatlán, Sinaloa</span>
+        </address>
+        <p class="hint">Los días y horarios de cada partido se anuncian primero en Instagram y Facebook.</p>
+        <a class="btn map" href="https://www.google.com/maps/dir/?api=1&destination=Av.+Ej%C3%A9rcito+Mexicano%2C+Telle%C3%ADa%2C+82017+Mazatl%C3%A1n%2C+Sin." target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          Cómo llegar
+        </a>
+      </div>
+      <a class="mapcard" href="https://www.google.com/maps/search/?api=1&query=Av.+Ej%C3%A9rcito+Mexicano%2C+Telle%C3%ADa%2C+82017+Mazatl%C3%A1n%2C+Sin." target="_blank" rel="noopener" aria-label="Ver la cancha en Google Maps">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <path class="grid" d="M0 60H400M0 130H400M0 200H400M0 270H400M60 0V300M140 0V300M220 0V300M300 0V300M370 0V300"/>
+          <path class="road" d="M-10 215L410 70"/>
+          <ellipse class="shadow" cx="200" cy="170" rx="22" ry="6"/>
+          <path class="pin" d="M200 164s-34-36-34-62a34 34 0 0 1 68 0c0 26-34 62-34 62z"/>
+          <circle class="pin-dot" cx="200" cy="102" r="12"/>
+        </svg>
+        <div class="cap"><b>Av. Ejército Mexicano</b><span>Ver en Google Maps</span></div>
+      </a>
+    </div>
+  </section>
+
+    <section id="sugerencias">
+    <div class="wrap suggest">
+      <div class="band-head" style="margin-bottom:0">
+        <p class="eyebrow">Tu opinión cuenta</p>
+        <h2>Sugerencias y mejoras</h2>
+      </div>
+      <div class="info">
+        <p>Esta página apenas empieza. Cuéntanos qué le falta, qué cambiarías o si algo no se ve bien en tu celular. Solo te pedimos tu nombre, sin crear cuenta.</p>
+        <a class="btn map" id="form-link" href="#" target="_blank" rel="noopener">Enviar sugerencia</a>
+        <p class="hint" id="form-aviso" hidden>El formulario estará disponible muy pronto.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="redes" class="social-band">
+    <div class="wrap">
+      <div class="band-head">
+        <p class="eyebrow">Síguenos</p>
+        <h2>Ahí subimos todo</h2>
+        <p>Fotos, videos y avisos de partidos aparecen primero en Instagram y Facebook.</p>
+      </div>
+      <div class="social">
+        <a href="https://www.instagram.com/fmac_fc" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+          <span><span class="name">Instagram</span><br><span class="handle">@fmac_fc</span></span>
+          <span class="go">Abrir</span>
+        </a>
+        <a href="https://www.facebook.com/share/1Jzns3B9dS/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.2-1.3 1.4-1.3H17V2.3c-.3 0-1.3-.1-2.4-.1-2.4 0-4.1 1.5-4.1 4.2v2.1H8v3.5h2.5V22H14v-9.9h2.6l.4-3.6H14z"/></svg>
+          <span><span class="name">Facebook</span><br><span class="handle">Fundación MAC CF</span></span>
+          <span class="go">Abrir</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Fundación MAC CF · Desde 2025</span>
+    <span>Fe, paciencia y buen humor</span>
+  </div>
+</footer>
+
+<script>
+/* Pega aquí el enlace de tu Google Form entre las comillas. Si está vacío, el botón se oculta. */
+var FORMULARIO = "https://docs.google.com/forms/d/e/1FAIpQLSdPvSoRH1-zxHAOkAoN7NVK3vnA7QBxiylUvmpbdcR7nXhMGw/viewform?usp=publish-editor";
+
+/* Un registro por partido. gf = goles de Fundación MAC, gc = goles del rival.
+   Cuando haya fecha, rival o enlace a la publicación se agregan aquí (fecha: "2026-09-20", rival: "Nombre"). */
+var PARTIDOS = [
+  { tipo: "liga", jornada: 1, gf: 0, gc: 3, img: "img/Liga Sahop/j1.jpg" },
+  { tipo: "liga", jornada: 2, gf: 1, gc: 4, img: "img/Liga Sahop/j2.jpg" },
+  { tipo: "liga", jornada: 3, gf: 2, gc: 2, img: "img/Liga Sahop/j3.jpg" },
+  { tipo: "liga", jornada: 4, gf: 1, gc: 1, img: "img/Liga Sahop/j4.jpg" },
+  { tipo: "liga", jornada: 5, gf: 0, gc: 4, img: "img/Liga Sahop/j5.jpg" },
+  { tipo: "liga", jornada: 6, gf: 1, gc: 5, img: "img/Liga Sahop/j6.jpg" },
+  { tipo: "liga", jornada: 7, gf: 0, gc: 3, img: "img/Liga Sahop/j7.jpg" },
+  { tipo: "amistoso", num: 1, gf: 0, gc: 0, img: "img/Amistosos/a1.jpg" },
+  { tipo: "amistoso", num: 2, gf: 1, gc: 3, img: "img/Amistosos/a2.jpg" },
+  { tipo: "amistoso", num: 3, gf: 5, gc: 3, img: "img/Amistosos/a3.jpg" }
+];
+
+(function () {
+  var NOMBRES = { victoria: "Victoria", empate: "Empate", derrota: "Derrota" };
+  var TIPOS = {
+    liga: {
+      eyebrow: "Liga Fut 9", col: "Jornada", cap: "Todas las jornadas",
+      etiqueta: function (p) { return "Jornada " + p.jornada; },
+      alt: function (p, r) { return "Resultado de la jornada " + p.jornada + " de la Liga Fut 9: " + NOMBRES[r].toLowerCase() + " " + p.gf + " a " + p.gc; }
+    },
+    amistoso: {
+      eyebrow: "Partidos amistosos", col: "Partido", cap: "Todos los amistosos",
+      etiqueta: function (p) { return "Amistoso " + p.num; },
+      alt: function (p, r) { return "Resultado del amistoso " + p.num + ": " + NOMBRES[r].toLowerCase() + " " + p.gf + " a " + p.gc; }
+    }
+  };
+  function resultado(p) { return p.gf > p.gc ? "victoria" : p.gf === p.gc ? "empate" : "derrota"; }
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text !== undefined) n.textContent = text;
+    return n;
+  }
+  function orden(p) { return p.jornada || p.num; }
+
+  var reel = document.getElementById("reel");
+  var rows = document.getElementById("rows");
+  var rec = document.getElementById("record");
+
+  function pintar(tipo) {
+    var cfg = TIPOS[tipo];
+    var lista = PARTIDOS.filter(function (p) { return p.tipo === tipo; })
+      .sort(function (a, b) {
+        if (a.fecha && b.fecha) return a.fecha < b.fecha ? 1 : -1;
+        return orden(b) - orden(a);
+      });
+    var cuenta = { victoria: 0, empate: 0, derrota: 0 };
+    reel.textContent = ""; rows.textContent = ""; rec.textContent = "";
+    document.getElementById("eyebrow").textContent = cfg.eyebrow;
+    document.getElementById("col1").textContent = cfg.col;
+    document.getElementById("cap").textContent = cfg.cap;
+
+    lista.forEach(function (p) {
+      var r = resultado(p);
+      cuenta[r]++;
+
+      var fig = el("figure");
+      var img = document.createElement("img");
+      img.src = p.img; img.width = 540; img.height = 675; img.loading = "lazy"; img.alt = cfg.alt(p, r);
+      var cap = el("figcaption");
+      cap.appendChild(el("span", "", cfg.etiqueta(p)));
+      cap.appendChild(el("span", "pill " + r, NOMBRES[r]));
+      fig.appendChild(img); fig.appendChild(cap);
+      reel.appendChild(fig);
+
+      var tr = el("tr");
+      tr.appendChild(el("td", "", cfg.etiqueta(p)));
+      var td = el("td"); td.appendChild(el("span", "pill " + r, NOMBRES[r])); tr.appendChild(td);
+      tr.appendChild(el("td", "score", p.gf + " – " + p.gc));
+      rows.appendChild(tr);
+    });
+
+    [["victoria", "ganados"], ["empate", "empatados"], ["derrota", "perdidos"]].forEach(function (k) {
+      var s = el("span"); s.appendChild(el("b", "", String(cuenta[k[0]]))); s.appendChild(document.createTextNode(k[1]));
+      rec.appendChild(s);
+    });
+    reel.scrollLeft = 0;
+  }
+
+  var tabs = document.querySelectorAll(".tabs button");
+  Array.prototype.forEach.call(tabs, function (b) {
+    b.addEventListener("click", function () {
+      Array.prototype.forEach.call(tabs, function (o) { o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
+      pintar(b.getAttribute("data-tipo"));
+    });
+  });
+  pintar("liga");
+
+  /* Carrusel: avanza solo cada 5 s, se detiene al tocarlo o con el botón */
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var manualPause = reduce, hoverPause = false, timer = null;
+  var toggle = document.getElementById("toggle");
+  function paso() { var f = reel.querySelector("figure"); return f ? f.getBoundingClientRect().width + 16 : 300; }
+  function avanzar(dir) {
+    var fin = reel.scrollLeft + reel.clientWidth >= reel.scrollWidth - 4;
+    if (dir > 0 && fin) { reel.scrollTo({ left: 0 }); return; }
+    if (dir < 0 && reel.scrollLeft <= 4) { reel.scrollTo({ left: reel.scrollWidth }); return; }
+    reel.scrollBy({ left: dir * paso() });
+  }
+  function actualizar() {
+    toggle.textContent = manualPause ? "Reanudar" : "Pausar";
+    toggle.setAttribute("aria-pressed", manualPause ? "true" : "false");
+    clearInterval(timer);
+    if (!manualPause && !hoverPause) timer = setInterval(function () { avanzar(1); }, 5000);
+  }
+  document.getElementById("next").addEventListener("click", function () { avanzar(1); });
+  document.getElementById("prev").addEventListener("click", function () { avanzar(-1); });
+  toggle.addEventListener("click", function () { manualPause = !manualPause; actualizar(); });
+  ["mouseenter", "focusin", "touchstart"].forEach(function (e) { reel.addEventListener(e, function () { hoverPause = true; actualizar(); }, { passive: true }); });
+  ["mouseleave", "focusout"].forEach(function (e) { reel.addEventListener(e, function () { hoverPause = false; actualizar(); }); });
+  reel.addEventListener("touchend", function () { setTimeout(function () { hoverPause = false; actualizar(); }, 4000); }, { passive: true });
+  if (reduce) reel.style.scrollBehavior = "auto";
+  actualizar();
+})();
+
+(function () {
+  var a = document.getElementById("form-link"), n = document.getElementById("form-aviso");
+  if (FORMULARIO) { a.href = FORMULARIO; } else { a.hidden = true; n.hidden = false; }
+})();
+</script>
+</body>
+</html>

@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Fundación MAC CF, club de fútbol amateur de Mazatlán creado entre amigos en 2025. Resultados, cancha y redes sociales.">
-<meta name="theme-color" content="#010e21">
+<meta name="theme-color" content="#0078d0">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Fundación MAC CF">
 <meta property="og:description" content="Club de fútbol amateur de Mazatlán. Resultados, cancha y redes sociales.">
 <!-- Cuando tengas la dirección final de la página, agrega la imagen para WhatsApp/Facebook (debe ser una URL completa):
 <meta property="og:image" content="https://TU-USUARIO.github.io/fundacion-mac/img/logo.jpg"> -->
-<link rel="icon" href="img/logo.jpg">
+<link rel="icon" href="img/logo_azul.png">
 <title>Fundación MAC CF</title>
 <style>
 :root { color-scheme: light; }
@@ -22,19 +22,20 @@ img { max-width: 100%; }
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Big+Shoulders+Display:wght@700;800;900&display=swap">
 <style>
-/* Layout: navy hero with the crest on the right, then a club fact sheet, three values, venue note and social links in a single column of bands. */
+/* Layout: blue hero with the crest on the right, then a club fact sheet, three values, venue note and social links in a single column of bands. */
 :root {
-  --ink: #010e21;          /* crest navy, fixed in both themes */
-  --on-ink: #f6f3ea;
-  --gold: #d3a54a;         /* crest gold, fixed */
-  --bg: #f5f3ec;
+  --brand: #0078d0;        /* azul del escudo, fijo en ambos temas */
+  --ink: #00457f;          /* azul profundo para pies y rótulos, fijo */
+  --on-ink: #ffffff;
+  --gold: #ffcc1a;         /* amarillo de los balones, fijo */
+  --bg: #f3f8fe;
   --surface: #ffffff;
-  --fg: #0b1a33;
-  --muted: #4d5a70;
-  --line: #d9d5c6;
-  --accent: #8a6516;       /* darker gold for text on light */
-  --accent-fill: #d3a54a;
-  --on-accent: #010e21;
+  --fg: #0a2240;
+  --muted: #4a5f7a;
+  --line: #d3e1f0;
+  --accent: #0066b8;       /* azul para texto sobre fondo claro */
+  --accent-fill: #ffcc1a;
+  --on-accent: #022a52;
   --font-display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
   --font-body: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
   --gutter: 20px;
@@ -42,15 +43,15 @@ img { max-width: 100%; }
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #020f22; --surface: #08182f; --fg: #f1eee4; --muted: #a8b2c4;
-    --line: #1c2c47; --accent: #d9ae55; --accent-fill: #d3a54a; --on-accent: #010e21;
+    --bg: #061a33; --surface: #0b2547; --fg: #eef5ff; --muted: #a9bdd6;
+    --line: #1b3a63; --accent: #6cbcff; --accent-fill: #ffcc1a; --on-accent: #022a52;
     --win: #6fcf97; --draw: #e0b65c; --loss: #ff8f89;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #020f22; --surface: #08182f; --fg: #f1eee4; --muted: #a8b2c4;
-  --line: #1c2c47; --accent: #d9ae55; --accent-fill: #d3a54a; --on-accent: #010e21;
+  --bg: #061a33; --surface: #0b2547; --fg: #eef5ff; --muted: #a9bdd6;
+  --line: #1b3a63; --accent: #6cbcff; --accent-fill: #ffcc1a; --on-accent: #022a52;
   --win: #6fcf97; --draw: #e0b65c; --loss: #ff8f89;
   color-scheme: dark;
 }
@@ -69,15 +70,15 @@ a { color: inherit; }
 .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; }
 
 /* Hero */
-.hero { background: var(--ink); color: var(--on-ink); padding-block: 40px 56px; }
+.hero { background: linear-gradient(135deg, #0083e0 0%, var(--brand) 45%, #0062b0 100%); color: var(--on-ink); padding-block: 40px 56px; border-bottom: 6px solid var(--gold); }
 .hero .wrap { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items: center; }
 .hero .copy { min-width: 0; display: grid; gap: 22px; }
 .hero .eyebrow { color: var(--gold); }
 .hero h1 { font-size: clamp(3.2rem, 10vw, 6.6rem); font-weight: 900; letter-spacing: 0.005em; }
 .hero h1 em { font-style: normal; color: var(--gold); display: block; }
-.hero .lede { max-width: 34em; font-size: 1.12rem; color: #d9dbe2; }
+.hero .lede { max-width: 34em; font-size: 1.12rem; color: #ffffff; }
 .hero .crest { min-width: 0; justify-self: center; width: 100%; max-width: 420px; }
-.hero .crest img { display: block; width: 100%; height: auto; }
+.hero .crest img { display: block; width: 100%; height: auto; border-radius: 50%; background: #fff; box-shadow: 0 14px 40px rgba(0, 30, 70, 0.35); }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
 .btn {
   display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px;
@@ -85,10 +86,10 @@ a { color: inherit; }
   transition: background 0.15s, color 0.15s;
 }
 .btn svg { width: 20px; height: 20px; flex: none; }
-.btn.solid { background: var(--gold); color: var(--ink); }
-.btn.solid:hover { background: #e4b95e; }
-.btn.line { color: var(--gold); }
-.btn.line:hover { background: rgba(211,165,74,0.14); }
+.btn.solid { background: var(--gold); color: var(--on-accent); }
+.btn.solid:hover { background: #ffd84d; }
+.btn.line { color: #ffffff; border-color: #ffffff; }
+.btn.line:hover { background: rgba(255,255,255,0.18); }
 
 /* Bands */
 section { padding-block: 64px; }
@@ -100,7 +101,7 @@ section { padding-block: 64px; }
 .sheet { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 48px; align-items: start; }
 .sheet .story { display: grid; gap: 18px; max-width: 34em; }
 .sheet .story p { color: var(--fg); }
-.facts { margin: 0; border-top: 2px solid var(--fg); }
+.facts { margin: 0; border-top: 3px solid var(--brand); }
 .facts div { display: grid; grid-template-columns: 8.5em minmax(0, 1fr); gap: 16px; padding-block: 14px; border-bottom: 1px solid var(--line); }
 .facts dt { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
 .facts dd { margin: 0; font-weight: 500; overflow-wrap: anywhere; }
@@ -124,8 +125,8 @@ section { padding-block: 64px; }
 .reel-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
 .reel-tools .order { font-size: 0.9rem; color: var(--muted); }
 .reel-btns { display: flex; gap: 8px; }
-.reel-btns button { min-height: 44px; min-width: 44px; padding: 0 14px; background: transparent; color: var(--fg); border: 2px solid var(--fg); font: 600 0.95rem var(--font-body); cursor: pointer; }
-.reel-btns button:hover { background: var(--fg); color: var(--bg); }
+.reel-btns button { min-height: 44px; min-width: 44px; padding: 0 14px; background: transparent; color: var(--accent); border: 2px solid var(--accent); font: 600 0.95rem var(--font-body); cursor: pointer; }
+.reel-btns button:hover { background: var(--accent); color: var(--bg); }
 .reel { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding-bottom: 12px; scrollbar-width: thin; }
 .reel figure { margin: 0; flex: 0 0 calc((100% - 48px) / 4); min-width: 0; scroll-snap-align: start; display: grid; gap: 10px; align-content: start; }
 .reel img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; background: var(--ink); }
@@ -138,14 +139,30 @@ section { padding-block: 64px; }
 table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
 caption { text-align: left; font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding-bottom: 10px; }
 th, td { text-align: left; padding: 12px 16px 12px 0; border-bottom: 1px solid var(--line); white-space: nowrap; }
-thead th { font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border-bottom: 2px solid var(--fg); }
+thead th { font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border-bottom: 3px solid var(--brand); }
 td.score { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; letter-spacing: 0.04em; }
 @media (max-width: 860px) { .reel figure { flex-basis: calc((100% - 16px) / 2); } }
 @media (max-width: 480px) { .reel figure { flex-basis: 78%; } }
 .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
-.tabs button { min-height: 44px; padding: 0 20px; background: transparent; color: var(--fg); border: 2px solid var(--fg); font: 600 0.95rem var(--font-body); cursor: pointer; }
+.tabs button { min-height: 44px; padding: 0 20px; background: transparent; color: var(--accent); border: 2px solid var(--accent); font: 600 0.95rem var(--font-body); cursor: pointer; }
 .tabs button:hover { background: var(--line); }
-.tabs button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+.tabs button[aria-pressed="true"] { background: var(--brand); color: #ffffff; border-color: var(--brand); box-shadow: 0 4px 0 var(--gold); }
+
+/* Noticias */
+.news-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; max-width: 900px; }
+.news-card { margin: 0; display: grid; gap: 14px; align-content: start; min-width: 0; }
+.news-card .thumb { position: relative; display: block; width: 100%; padding: 0; border: 0; border-bottom: 5px solid var(--gold); background: var(--ink); cursor: zoom-in; font: inherit; }
+.news-card .thumb img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.news-card .zoom { position: absolute; right: 10px; bottom: 10px; padding: 6px 12px; background: var(--brand); color: #fff; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+.news-card .thumb:hover .zoom { background: var(--gold); color: var(--on-accent); }
+.news-card .fecha-nota { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.news-card h3 { font-size: 1.9rem; font-weight: 800; color: var(--accent); }
+.news-card p { color: var(--muted); max-width: 30em; }
+dialog.lightbox { border: 0; padding: 0; background: transparent; max-width: min(92vw, 640px); max-height: 94vh; overflow: visible; }
+dialog.lightbox::backdrop { background: rgba(0, 25, 60, 0.88); }
+dialog.lightbox img { display: block; width: auto; max-width: 100%; max-height: 86vh; margin-inline: auto; border: 4px solid var(--gold); background: var(--ink); }
+dialog.lightbox .cerrar { display: block; margin: 12px auto 0; min-height: 44px; padding: 0 26px; background: var(--gold); color: var(--on-accent); border: 0; font: 600 1rem var(--font-body); cursor: pointer; }
+@media (max-width: 700px) { .news-grid { grid-template-columns: minmax(0, 1fr); gap: 40px; } }
 
 /* Next match */
 .next { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 400px); gap: 48px; align-items: center; }
@@ -155,8 +172,8 @@ td.score { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem
 .next .hint { color: var(--muted); max-width: 30em; }
 .next-media { min-width: 0; width: 100%; max-width: 400px; justify-self: end; }
 .next-media .cartel { display: block; width: 100%; height: auto; background: var(--ink); }
-.next-ph { aspect-ratio: 4 / 5; max-width: 100%; background: var(--ink); display: grid; place-items: center; border: 1px solid var(--line); }
-.next-ph img { width: 56%; height: auto; display: block; }
+.next-ph { aspect-ratio: 4 / 5; max-width: 100%; background: #ffffff; display: grid; place-items: center; border: 1px solid var(--line); }
+.next-ph img { width: 70%; height: auto; display: block; border-radius: 50%; }
 @media (max-width: 860px) { .next { grid-template-columns: minmax(0, 1fr); gap: 28px; } .next-media { justify-self: start; max-width: 340px; } }
 
 /* Venue */
@@ -171,11 +188,11 @@ td.score { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem
 .mapcard { position: relative; display: block; min-width: 0; max-width: 100%; aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid var(--line); background: var(--surface); text-decoration: none; }
 .mapcard svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .mapcard .grid { stroke: var(--line); stroke-width: 2; fill: none; }
-.mapcard .road { stroke: var(--accent-fill); stroke-width: 10; fill: none; opacity: 0.55; stroke-linecap: round; }
+.mapcard .road { stroke: var(--brand); stroke-width: 10; fill: none; opacity: 0.45; stroke-linecap: round; }
 .mapcard .pin { fill: var(--accent-fill); }
-.mapcard .pin-dot { fill: var(--ink); }
+.mapcard .pin-dot { fill: var(--brand); }
 .mapcard .shadow { fill: var(--fg); opacity: 0.18; }
-.mapcard .cap { position: absolute; left: 0; right: 0; bottom: 0; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; padding: 14px 16px; background: var(--ink); color: var(--on-ink); }
+.mapcard .cap { position: absolute; left: 0; right: 0; bottom: 0; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; padding: 14px 16px; background: var(--brand); color: var(--on-ink); }
 .mapcard .cap b { font-weight: 600; }
 .mapcard .cap span { color: var(--gold); font-weight: 600; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; }
 .mapcard:hover .cap span { text-decoration: underline; }
@@ -188,22 +205,22 @@ td.score { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem
 @media (max-width: 860px) { .suggest { grid-template-columns: minmax(0, 1fr); gap: 28px; } }
 
 /* Social */
-.social-band { background: var(--ink); color: var(--on-ink); }
+.social-band { background: linear-gradient(135deg, #0083e0 0%, var(--brand) 50%, #0062b0 100%); color: var(--on-ink); border-top: 6px solid var(--gold); }
 .social-band .band-head .eyebrow { color: var(--gold); }
-.social-band .band-head p { color: #d9dbe2; max-width: 32em; }
+.social-band .band-head p { color: #ffffff; max-width: 32em; }
 .social { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .social a {
   display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 18px; align-items: center;
-  padding: 22px; border: 1px solid #1f3355; text-decoration: none; background: #04152b;
+  padding: 22px; border: 1px solid rgba(255,255,255,0.45); text-decoration: none; background: rgba(0, 40, 90, 0.28);
   transition: border-color 0.15s, background 0.15s;
 }
-.social a:hover { border-color: var(--gold); background: #071d3a; }
+.social a:hover { border-color: var(--gold); background: rgba(0, 40, 90, 0.45); }
 .social svg { width: 34px; height: 34px; color: var(--gold); }
 .social .name { font-family: var(--font-display); text-transform: uppercase; font-weight: 800; font-size: 1.6rem; line-height: 1; }
-.social .handle { color: #b7bfcf; font-size: 0.95rem; overflow-wrap: anywhere; }
+.social .handle { color: #e6f1fb; font-size: 0.95rem; overflow-wrap: anywhere; }
 .social .go { color: var(--gold); font-weight: 600; font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; }
 
-footer { background: var(--ink); color: #9aa6bb; padding-block: 28px; font-size: 0.9rem; border-top: 1px solid #14233f; }
+footer { background: var(--ink); color: #cfe3f7; padding-block: 28px; font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.18); }
 footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
 
 @media (max-width: 860px) {
@@ -241,12 +258,26 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
       </div>
     </div>
     <div class="crest">
-      <img src="img/logo.jpg" width="720" height="700" alt="Escudo de Fundación MAC CF: corona dorada, las letras MAC, un balón y el año 2025">
+      <img src="img/logo_azul.png" width="720" height="700" alt="Escudo de Fundación MAC CF: letras MAC en azul, dos balones amarillos y el año 2025">
     </div>
   </div>
 </header>
 
 <main>
+  <section id="noticias">
+    <div class="wrap">
+      <div class="band-head">
+        <p class="eyebrow">Lo último del club</p>
+        <h2>Noticias</h2>
+      </div>
+      <div class="news-grid" id="news-grid"></div>
+    </div>
+  </section>
+  <dialog class="lightbox" id="lightbox" aria-label="Imagen de la noticia">
+    <img id="lightbox-img" src="" alt="">
+    <button type="button" class="cerrar" id="lightbox-cerrar">Cerrar</button>
+  </dialog>
+
   <section id="proximo" class="values-band">
     <div class="wrap next">
       <div class="info">
@@ -258,7 +289,7 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
         <p class="hint" id="proximo-nota">Aún no hay fecha confirmada. Los avisos salen primero en Instagram y Facebook.</p>
       </div>
       <div class="next-media" id="proximo-media">
-        <div class="next-ph"><img src="img/logo.jpg" width="360" height="350" alt="Escudo de Fundación MAC CF"></div>
+        <div class="next-ph"><img src="img/logo_azul.png" width="360" height="350" alt="Escudo de Fundación MAC CF"></div>
       </div>
     </div>
   </section>
@@ -280,7 +311,7 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
         <div><dt>Nombre</dt><dd>Fundación MAC CF (Club de Fútbol)</dd></div>
         <div><dt>Fundado</dt><dd>2025</dd></div>
         <div><dt>Categoría</dt><dd>Amateur, entre amigos</dd></div>
-        <div><dt>Colores</dt><dd>Azul marino, dorado y blanco</dd></div>
+        <div><dt>Colores</dt><dd>Azul rey, blanco y amarillo</dd></div>
         <div><dt>Redes</dt><dd>@fmac_fc en Instagram y Facebook</dd></div>
       </dl>
     </div>
@@ -584,6 +615,60 @@ var PARTIDOS = [
   enlace.appendChild(img);
   var media = document.getElementById("proximo-media");
   media.textContent = ""; media.appendChild(enlace);
+})();
+
+/* Noticias del club: la más reciente va primero. Para agregar una, copia un bloque y cambia los datos.
+   fecha es opcional (ejemplo: fecha: "18 de octubre de 2026"). */
+var NOTICIAS = [
+  {
+    titulo: "Declaración oficial del presidente Chávez",
+    resumen: "El presidente habla de la renovación del club: cambios en la directiva, nueva imagen y orden en la casa. Con mucho humor, como siempre.",
+    img: "img/Noticias/decla_presi.jpg",
+    alt: "Noticia: declaración oficial del presidente Chávez. Collage con la foto del equipo en la cancha y un texto sobre los cambios en la directiva y la nueva imagen del club."
+  },
+  {
+    titulo: "Nuevo escudo",
+    resumen: "Presentamos el nuevo escudo de Fundación MAC: azul rey, dos balones amarillos y el año de fundación del club (2025).",
+    img: "img/Noticias/nuevo_escudo.jpg",
+    alt: "Noticia: nuevo escudo. El escudo de Fundación MAC al centro, rodeado de fotos del equipo y de la cancha."
+  }
+];
+
+(function () {
+  var grid = document.getElementById("news-grid");
+  var seccion = document.getElementById("noticias");
+  if (!NOTICIAS.length) { seccion.hidden = true; return; }
+  var dlg = document.getElementById("lightbox");
+  var dImg = document.getElementById("lightbox-img");
+
+  NOTICIAS.forEach(function (n) {
+    var card = document.createElement("article");
+    card.className = "news-card";
+
+    var btn = document.createElement("button");
+    btn.type = "button"; btn.className = "thumb";
+    btn.setAttribute("aria-label", "Ampliar imagen: " + n.titulo);
+    var img = document.createElement("img");
+    img.src = n.img; img.alt = n.alt || n.titulo; img.width = 540; img.height = 675; img.loading = "lazy";
+    var z = document.createElement("span");
+    z.className = "zoom"; z.setAttribute("aria-hidden", "true"); z.textContent = "Ampliar";
+    btn.appendChild(img); btn.appendChild(z);
+    btn.addEventListener("click", function () {
+      dImg.src = n.img; dImg.alt = n.alt || n.titulo;
+      if (dlg.showModal) { dlg.showModal(); } else { window.open(n.img, "_blank", "noopener"); }
+    });
+    card.appendChild(btn);
+
+    if (n.fecha) {
+      var f = document.createElement("p"); f.className = "fecha-nota"; f.textContent = n.fecha; card.appendChild(f);
+    }
+    var h = document.createElement("h3"); h.textContent = n.titulo; card.appendChild(h);
+    var p = document.createElement("p"); p.textContent = n.resumen; card.appendChild(p);
+    grid.appendChild(card);
+  });
+
+  document.getElementById("lightbox-cerrar").addEventListener("click", function () { dlg.close(); });
+  dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
 })();
 </script>
 </body>

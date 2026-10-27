@@ -16,7 +16,7 @@ The site is a static, mobile-first page that presents the team, publishes club n
 - **Balón de Oro ceremony:** an awards gala for the club's first 2026 awards. Winners are hidden at first and revealed one by one in a full-screen ceremony with music and confetti, or all at once for visitors who prefer to skip it.
 - **Team presentation:** crest, story, values and a short fact sheet.
 - **Club news:** a section with the club's latest announcements, shown as image cards (for example, the new crest reveal and the president's official statement). Each card has a title and a short text, and tapping an image opens it enlarged so the text inside the graphic is easy to read on a phone. News is stored as data, newest first.
-- **Next match:** a featured pre-match image taken from the `img/Novedades/` folder. The most recently added image is shown until its match day is over; after that a generic "to be defined" card takes its place.
+- **Next match:** a featured pre-match image taken from the `img/Novedades/` folder. The most recently added image is shown until its match day is over; after that a "to be defined" card takes its place, showing a set of "technical difficulties" images that rotate every 10 seconds.
 - **Results:** a rotating carousel of the result graphics the club publishes on Instagram, a full results table and a win/draw/loss record. Results are split into two tabs, **Liga Fut 9** (league) and **Amistosos** (friendlies), so friendlies never affect the league record.
 - **Venue:** address with a link that opens directions in Google Maps.
 - **Social links:** Instagram (`@fmac_fc`) and Facebook.
@@ -54,13 +54,14 @@ fundacion-mac/
 ├── index.html              # The whole site: markup, styles and script
 ├── README.md
 ├── audio/
-│   └── champions.mp3       # Ceremony music (added by the club)
+│   └── UEFA Champions League.mp3   # Ceremony music (added by the club)
 ├── img/
-│   ├── logo.jpg            # Club crest (also used as the favicon)
-│   ├── balon-de-oro/       # Award images: ondeado.jpg, navega.jpg, revelacion.jpg,
-│   │                       #   bota-de-oro.jpg, balon-de-oro.jpg, consolacion.jpg
-│   ├── Noticias/           # Club news images: noticia-1.jpg, noticia-2.jpg …
-│   ├── Liga Sahop/         # League result images: j1.jpg … j7.jpg
+│   ├── logo_azul.png       # Club crest (also used as the favicon)
+│   ├── Balon_de_oro/       # Award images: Ondeado.jpg, Mas tranquilo.jpg, Revelacion y carnicero.jpg,
+│   │                       #   Bota de oro.jpg, Balon de oro.jpg, Balon de playa.jpg
+│   ├── dif/                # "Technical difficulties" images that rotate when there is no next match
+│   ├── Noticias/           # Club news images: decla_presi.jpg, nuevo_escudo.jpg …
+│   ├── Liga Sahop/         # League result images: j1.jpg … j9.jpg
 │   ├── Amistosos/          # Friendly result images: a1.jpg … a3.jpg
 │   └── Novedades/          # Pre-match images (filled by the sync script)
 │       ├── novedades.js    # Generated index read by the page
@@ -92,13 +93,13 @@ var PREMIOS = [
   {
     categoria: "Bota de Oro", ganador: "Juan", posicion: "Delantero",
     frase: "El único premio objetivo.",
-    img: "img/balon-de-oro/bota-de-oro.jpg",
+    img: "img/Balon_de_oro/Bota de oro.jpg",
     alt: "Bota de Oro: Juan, de traje y corbata negra, sostiene una bota de fútbol dorada."
   },
   {
     categoria: "Balón de Oro", ganador: "Kevin", posicion: "Mediocampista",
     frase: "Todos sus amigos y familiares votaron por él.",
-    img: "img/balon-de-oro/balon-de-oro.jpg",
+    img: "img/Balon_de_oro/Balon de oro.jpg",
     alt: "Balón de Oro: Kevin, de esmoquin, besa un balón de oro.",
     principal: true
   }
@@ -121,7 +122,7 @@ If `PREMIOS` is empty, the section and its navigation button hide themselves.
 
 ### Music
 
-Put the audio file at `audio/champions.mp3`. Notes:
+Put the audio file at `audio/UEFA Champions League.mp3`, or change the `src` of the `<audio>` tag inside the Balón de Oro section if you use another name. Notes:
 
 - Browsers block sound that starts on its own when a page loads, so the music starts when the visitor taps "Abrir la ceremonia". That tap is what allows it to play.
 - If the file is missing, the ceremony still works, just without sound.
@@ -129,7 +130,7 @@ Put the audio file at `audio/champions.mp3`. Notes:
 
 ### Adding an award
 
-1. Save the image in `img/balon-de-oro/`.
+1. Save the image in `img/Balon_de_oro/`.
 2. Add a block to `PREMIOS` in the position where it should appear in the ceremony.
 3. Check it locally, then commit and push.
 
@@ -144,7 +145,7 @@ var NOTICIAS = [
   {
     titulo: "Nuevo escudo",
     resumen: "Presentamos el nuevo escudo de Fundación MAC: azul rey, dos balones amarillos y el año 2025.",
-    img: "img/Noticias/noticia-2.jpg",
+    img: "img/Noticias/nuevo_escudo.jpg",
     alt: "Noticia: nuevo escudo. El escudo de Fundación MAC al centro, rodeado de fotos del equipo y de la cancha.",
     fecha: "18 de octubre de 2026"
   }
@@ -220,6 +221,16 @@ python scripts/descargar_drive.py --carpeta "https://drive.google.com/drive/fold
 
 It uses the Google Drive API with **read-only** access. The OAuth credentials (`credentials.json`) and the saved login (`token.json`) live in `~/.fmac_drive/`, outside the repository, and must never be committed. The setup steps are at the top of the script. Only new or modified images are downloaded, and each image's real Drive creation time is saved in `drive_fechas.json`, so `sync_novedades.py` knows which image was uploaded last even when many are downloaded at once. It downloads straight into the project's `img/Novedades/` by default, so after downloading you only need to run `sync_novedades.py`.
 
+### Fallback images (img/dif/)
+
+When there is no upcoming match image (nothing new in `img/Novedades/`, or the match day is already over), the "Próximo partido" card shows "Por definir" together with a set of "technical difficulties" images from `img/dif/`. They rotate every 10 seconds.
+
+- **The Novedades logic is unchanged.** As soon as a new image is added to Novedades, it replaces the rotation.
+- **Image list.** The images are listed in the `DIFICULTADES` array, just above the "Próximo partido" code in `index.html`. To add one, put the file in `img/dif/` and add its path to the list.
+- **Original size.** Each image is shown at its real size: it is never stretched or cropped, only shrunk when it does not fit. Images are centered in a fixed 4:3 box, so the page does not jump when a taller or smaller image appears. Small images stay small instead of getting blurry.
+- **Missing files are skipped.** The page checks which images load before it starts rotating. A wrong file name does not break the rotation: that image is skipped and a warning is written to the browser console (F12). If none of them loads, the static image written in the HTML stays.
+- **Reduced motion.** Visitors who prefer reduced motion see only the first image, with no rotation, the same way the results carousel behaves.
+
 ### Local first, then published
 
 The project folder on the computer is the **development copy**: nothing there is visible to anyone. Check the page locally (`python -m http.server`) and, when everything looks right, publish manually with `git add`, `git commit` and `git push`, which updates GitHub Pages, the **production site**. Neither script runs Git.
@@ -250,7 +261,7 @@ An opponent name field (`rival`) is planned but not displayed yet.
 
 ### Adding a new result
 
-1. Save the image in the matching folder, for example `img/Liga Sahop/j8.jpg`.
+1. Save the image in the matching folder, for example `img/Liga Sahop/j10.jpg`.
 2. Add a line to `PARTIDOS`.
 3. Commit and push.
 
@@ -306,6 +317,7 @@ In the form settings, leave *Collect email addresses* off and do not limit respo
   The blue bands stay the same in both themes, and the rest of the page switches between a light and a dark palette. Changing `--brand`, `--gold` and `--accent` is enough to try a different look.
 - **Crest on blue.** The new crest image has a white background, so it is shown clipped to a circle (`border-radius: 50%`) with a soft shadow, which avoids a white square over the blue hero.
 - **Navigation bar.** It stays at the top while scrolling, uses the deep blue (`--ink`) and highlights the Balón de Oro link in gold. On phones it scrolls sideways instead of wrapping, and the club name next to the crest is hidden to save space. Anchored sections leave room for the bar so headings are not covered.
+- **Fallback images.** The "technical difficulties" images use a fixed 4:3 box with the image centered at its natural size (`max-width` and `max-height` of 100%, never upscaled), so quality is preserved and the layout stays stable while they rotate with a soft fade.
 - **Gala look.** The Balón de Oro section and its dialog use their own black and gold colors, separate from the site palette, so they match the award graphics. Animations (pulsing curtain, reveal, confetti) are turned off for visitors who prefer reduced motion.
 - **Mobile first.** Layouts collapse to a single column on narrow screens, and the page does not scroll horizontally at phone widths.
 - **Accessibility:** semantic sections and tables, descriptive `alt` text on every result and news image, a short written summary under each news image, visible keyboard focus, labelled controls, an enlarged-image dialog that closes with Esc, and a carousel that pauses on hover, focus or touch and can be paused with a button. Auto-rotation is off for visitors who prefer reduced motion.
@@ -329,7 +341,7 @@ In the form settings, leave *Collect email addresses* off and do not limit respo
 
 ## Content and privacy
 
-The crest, photos, news graphics, award graphics and result graphics belong to Fundación MAC CF. Some award graphics use edited photos from public events and are meant as jokes between friends. The ceremony music is supplied by the club and may be protected by copyright. Player photos should only be published with the players' consent, and the repository should not contain phone numbers or other personal data. Responses to the feedback form are stored in a private Google Sheet and are not part of this repository.
+The crest, photos, news graphics, award graphics and result graphics belong to Fundación MAC CF. Some award graphics use edited photos from public events and are meant as jokes between friends. The ceremony music is supplied by the club and may be protected by copyright. The "technical difficulties" images are stills from a TV series and are not owned by the club, so consider replacing them with original graphics if the site becomes public or commercial. Player photos should only be published with the players' consent, and the repository should not contain phone numbers or other personal data. Responses to the feedback form are stored in a private Google Sheet and are not part of this repository.
 
 ## License
 

@@ -1,6 +1,12 @@
 /* Generado por sync_novedades.py. No lo edites a mano. */
 var NOVEDADES = [
   {
+    "archivo": "2026-10-27_Jornada-10.jpg",
+    "partido": "2026-10-27",
+    "titulo": "Jornada 10",
+    "subido": "2026-10-27T12:29:01-07:00"
+  },
+  {
     "archivo": "2026-10-19_Jornada-9.jpg",
     "partido": "2026-10-19",
     "titulo": "Jornada 9",

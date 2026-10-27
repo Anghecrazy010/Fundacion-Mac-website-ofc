@@ -9,7 +9,7 @@
 <meta property="og:title" content="Fundación MAC CF">
 <meta property="og:description" content="Club de fútbol amateur de Mazatlán. Resultados, cancha y redes sociales.">
 <!-- Cuando tengas la dirección final de la página, agrega la imagen para WhatsApp/Facebook (debe ser una URL completa):
-<meta property="og:image" content="https://TU-USUARIO.github.io/fundacion-mac/img/logo.jpg"> -->
+<meta property="og:image" content="https://TU-USUARIO.github.io/fundacion-mac/img/logo_azul.png"> -->
 <link rel="icon" href="img/logo_azul.png">
 <title>Fundación MAC CF</title>
 <style>
@@ -238,8 +238,11 @@ dialog.lightbox .cerrar { display: block; margin: 12px auto 0; min-height: 44px;
 .next .hint { color: var(--muted); max-width: 30em; }
 .next-media { min-width: 0; width: 100%; max-width: 400px; justify-self: end; }
 .next-media .cartel { display: block; width: 100%; height: auto; background: var(--ink); }
-.next-ph { aspect-ratio: 4 / 5; max-width: 100%; background: #ffffff; display: grid; place-items: center; border: 1px solid var(--line); }
-.next-ph img { width: 70%; height: auto; display: block; border-radius: 50%; }
+/* Imágenes de "dificultades técnicas": se muestran a su tamaño original (nunca se agrandan ni se recortan),
+   centradas en una caja fija para que la página no salte al rotar. */
+.next-ph { position: relative; aspect-ratio: 4 / 3; max-width: 100%; background: var(--surface); border: 1px solid var(--line); overflow: hidden; }
+.next-ph img { position: absolute; inset: 0; margin: auto; display: block; width: auto; height: auto; max-width: 100%; max-height: 100%; transition: opacity 0.4s; }
+.next-ph img.oculta { opacity: 0; }
 @media (max-width: 860px) { .next { grid-template-columns: minmax(0, 1fr); gap: 28px; } .next-media { justify-self: start; max-width: 340px; } }
 
 /* Venue */
@@ -403,7 +406,7 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
         <p class="hint" id="proximo-nota">Aún no hay fecha confirmada. Los avisos salen primero en Instagram y Facebook.</p>
       </div>
       <div class="next-media" id="proximo-media">
-        <div class="next-ph"><img src="img/logo_azul.png" width="360" height="350" alt="Escudo de Fundación MAC CF"></div>
+        <div class="next-ph"><img src="img/dif/tec_dif_2.jpg" alt="Dificultades técnicas, por favor espere"></div>
       </div>
     </div>
   </section>
@@ -691,6 +694,15 @@ var PARTIDOS = [
   if (FORMULARIO) { a.href = FORMULARIO; } else { a.hidden = true; n.hidden = false; }
 })();
 
+/* Imágenes que rotan cada 10 segundos en "Próximo partido" cuando NO hay una imagen nueva en Novedades.
+   Están en la carpeta img/dif/. Para agregar una, escribe su ruta aquí. */
+var DIFICULTADES = [
+  "img/dif/tec_dif.jpg",
+  "img/dif/tec_dif2.jpg",
+  "img/dif/tec_dif3.jpg",
+  "img/dif/tec_dif4.jpg"
+];
+
 /* Próximo partido: muestra la imagen más reciente de Novedades y, cuando termina el día del
    partido, vuelve al aviso "Por definir". Las fechas se comparan con la hora de Mazatlán. */
 (function () {
@@ -710,10 +722,29 @@ var PARTIDOS = [
     var t = new Intl.DateTimeFormat("es-MX", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" }).format(d).replace(",", "");
     return t.charAt(0).toUpperCase() + t.slice(1);
   }
+  function rotarDif() {
+    var caja = document.querySelector("#proximo-media .next-ph");
+    if (!caja || !DIFICULTADES.length) { return; }
+    var img = caja.querySelector("img");
+    if (!img) { img = document.createElement("img"); caja.appendChild(img); }
+    img.alt = "Dificultades técnicas, por favor espere";
+    img.removeAttribute("width"); img.removeAttribute("height");
+    img.src = DIFICULTADES[0];
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || DIFICULTADES.length < 2) { return; }
+    DIFICULTADES.slice(1).forEach(function (r) { var pre = new Image(); pre.src = r; });
+    var i = 0;
+    img.onload = img.onerror = function () { img.classList.remove("oculta"); };
+    setInterval(function () {
+      i = (i + 1) % DIFICULTADES.length;
+      img.classList.add("oculta");
+      setTimeout(function () { img.src = DIFICULTADES[i]; }, 400);
+    }, 10000);
+  }
   var lista = (typeof NOVEDADES !== "undefined" && NOVEDADES instanceof Array) ? NOVEDADES.slice() : [];
   lista.sort(function (a, b) { return (Date.parse(b.subido) - Date.parse(a.subido)) || (a.partido < b.partido ? 1 : -1); });
   var ultima = lista[0];
-  if (!ultima || ultima.partido < hoy()) { return; }
+  if (!ultima || ultima.partido < hoy()) { rotarDif(); return; }
 
   var fecha = fechaLarga(ultima.partido);
   document.getElementById("proximo-titulo").textContent = ultima.titulo;
@@ -788,7 +819,7 @@ var NOTICIAS = [
 })();
 
 /* Balón de Oro Fundación MAC 2026. El orden de la lista es el orden de la ceremonia:
-   el último premio es el gran final (principal: true). La imagen no se carga hasta que se revela. */
+   el premio con principal: true es el gran final y lleva confeti. La imagen no se carga hasta que se revela. */
 var PREMIOS = [
   {
     categoria: "Ondeado del año", ganador: "Jorge", posicion: "¿Delantero?",
@@ -802,7 +833,6 @@ var PREMIOS = [
     img: "img/Balon_de_oro/Mas tranquilo.jpg",
     alt: "El que se la navega más tranquilo: Alexis, de esmoquin y con lentes de seguridad transparentes, sostiene un trofeo dorado con forma de muñeco."
   },
- 
   {
     categoria: "Revelación y Carnicero del año", ganador: "Anghelo", posicion: "Delantero",
     frase: "Juega para los que no saben de fútbol.",
@@ -822,13 +852,12 @@ var PREMIOS = [
     alt: "Balón de Oro: Kevin, de esmoquin, besa un balón de oro.",
     principal: true
   },
-
   {
     categoria: "Premio de consolación", ganador: "Eduardo Morales", posicion: "Alias El Brain (El Cerebro)",
     frase: "No ganó nada, pero lo importante es que aquí aparece su nombre.",
     img: "img/Balon_de_oro/Balon de playa.jpg",
-    alt: "Jugador con la camiseta azul sosteniendo un trofeo dorado cubierto por una pelota de playa de dibujo."
-  },
+    alt: "Premio de consolación: Eduardo Morales, con la camiseta azul del equipo, sostiene un trofeo dorado cubierto por una pelota de playa de dibujo."
+  }
 ];
 
 (function () {
@@ -933,7 +962,7 @@ var PREMIOS = [
     stage.classList.add("revelado");
     gWho.textContent = quien(p); gQuote.textContent = p.frase;
     mostrarCard(idx);
-    if (p.principal || idx === ultimo) confeti();
+    if (p.principal) confeti();
     estado = "visto";
     gBtn.textContent = idx < ultimo ? "Siguiente premio" : "Ver todos los ganadores";
   }

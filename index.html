@@ -307,12 +307,35 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
+<style>
+.mom-layout { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,440px); gap:48px; align-items:center; }
+.mom-copy { display:grid; gap:22px; justify-items:start; }
+.mom-copy h3 { font-size:2.4rem; color:var(--accent); }
+.mom-image { position:relative; border:0; border-bottom:5px solid var(--gold); padding:0; background:var(--ink); cursor:zoom-in; width:100%; }
+.mom-image img { display:block; width:100%; height:auto; }
+.mom-image span { position:absolute; bottom:12px; right:12px; padding:8px 14px; background:var(--gold); color:var(--on-accent); font:600 1rem var(--font-body); }
+.mom-stats { display:flex; gap:30px; color:var(--accent); }
+.mom-stats b { font:800 3rem var(--font-display); }
+.news-video { width:100%; aspect-ratio:4/5; object-fit:contain; background:#001426; border-bottom:5px solid var(--gold); }
+.feedback-form { display:grid; gap:10px; }
+.feedback-form label { font-weight:600; }
+.feedback-form input,.feedback-form select,.feedback-form textarea { width:100%; padding:12px; border:1px solid var(--line); border-radius:6px; background:var(--surface); color:var(--fg); font:inherit; }
+.feedback-form textarea { resize:vertical; }
+.feedback-form button:disabled { opacity:.6; cursor:wait; }
+.feedback-trap { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+#feedback-status { min-height:1.6em; }
+#feedback-status[data-state="error"] { color:var(--loss); }
+#feedback-status[data-state="success"] { color:var(--win); }
+.tabs { flex-wrap:wrap; }
+@media(max-width:700px) { .mom-layout { grid-template-columns:1fr; gap:28px; } }
+</style>
 </head>
 <body>
 <nav class="topnav" aria-label="Secciones de la página">
   <div class="wrap">
     <a class="brand" href="#"><img src="img/logo_azul.png" width="34" height="34" alt=""><span>Fundación MAC</span></a>
     <a href="#equipo">Equipo</a>
+    <a href="#mom">MOM</a>
     <a href="#noticias">Noticias</a>
     <a href="#resultados">Resultados</a>
     <a href="#cancha">Cancha</a>
@@ -381,6 +404,24 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
     <div class="confetti" id="g-confetti" aria-hidden="true"></div>
   </dialog>
 
+  <section id="mom" class="values-band">
+    <div class="wrap mom-layout">
+      <div class="mom-copy">
+        <p class="eyebrow">MOM · Último partido</p>
+        <h2>El jugador de la jornada</h2>
+        <h3>J. Chávez</h3>
+        <p>Betos League · KM 0 · Jornada 1<br><time datetime="2026-11-04">4 de noviembre de 2026</time></p>
+        <p class="mom-stats"><span><b>2</b> goles</span><span><b>2</b> asistencias</span></p>
+        <p>Una actuación para recordar en la victoria de Fundación MAC por 8–2. Nuestro Man of the Match.</p>
+        <a class="btn line" href="#resultados">Ver resultados</a>
+      </div>
+      <button type="button" class="mom-image" id="mom-ampliar" aria-label="Ampliar cartel de J. Chávez, jugador del partido">
+        <img src="img/MOM-semana/MOM-J1-2026_11_04.jpg" alt="J. Chávez, Man of the Match de la jornada 1 de Betos League: 2 goles y 2 asistencias" width="2176" height="2704" loading="lazy">
+        <span>Ampliar cartel ↗</span>
+      </button>
+    </div>
+  </section>
+
   <section id="noticias">
     <div class="wrap">
       <div class="band-head">
@@ -390,7 +431,7 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
       <div class="news-grid" id="news-grid"></div>
     </div>
   </section>
-  <dialog class="lightbox" id="lightbox" aria-label="Imagen de la noticia">
+  <dialog class="lightbox" id="lightbox" aria-label="Cartel ampliado">
     <img id="lightbox-img" src="" alt="">
     <button type="button" class="cerrar" id="lightbox-cerrar">Cerrar</button>
   </dialog>
@@ -406,7 +447,7 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
         <p class="hint" id="proximo-nota">Aún no hay fecha confirmada. Los avisos salen primero en Instagram y Facebook.</p>
       </div>
       <div class="next-media" id="proximo-media">
-        <div class="next-ph"><img src="img/dif/tec_dif_2.jpg" alt="Dificultades técnicas, por favor espere"></div>
+        <div class="next-ph"><img src="img/dif/tec_dif2.jpg" alt="Dificultades técnicas, por favor espere"></div>
       </div>
     </div>
   </section>
@@ -462,13 +503,14 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
     <div class="wrap">
       <div class="results-head">
         <div class="band-head">
-          <p class="eyebrow" id="eyebrow">Liga Fut 9</p>
+          <p class="eyebrow" id="eyebrow">Betos League · KM 0</p>
           <h2>Resultados</h2>
         </div>
         <p class="record" id="record" aria-live="polite"></p>
       </div>
       <div class="tabs" role="group" aria-label="Tipo de partido">
-        <button type="button" data-tipo="liga" aria-pressed="true">Liga Fut 9</button>
+        <button type="button" data-tipo="km0" aria-pressed="true">Betos League · KM 0</button>
+        <button type="button" data-tipo="liga" aria-pressed="false">Liga Fut 9 · Sahop</button>
         <button type="button" data-tipo="amistoso" aria-pressed="false">Amistosos</button>
       </div>
       <div class="reel-tools">
@@ -527,9 +569,23 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
         <h2>Sugerencias y mejoras</h2>
       </div>
       <div class="info">
-        <p>Esta página apenas empieza. Cuéntanos qué le falta, qué cambiarías o si algo no se ve bien en tu celular. Solo te pedimos tu nombre, sin crear cuenta.</p>
-        <a class="btn map" id="form-link" href="#" target="_blank" rel="noopener">Enviar sugerencia</a>
-        <p class="hint" id="form-aviso" hidden>El formulario estará disponible muy pronto.</p>
+        <p>Esta página apenas empieza. Cuéntanos qué le falta, qué cambiarías o si algo no se ve bien en tu celular. Escríbenos aquí mismo, sin crear cuenta. Tu nombre es opcional.</p>
+        <form id="feedback-form" class="feedback-form">
+          <label for="feedback-name">Nombre (opcional)</label>
+          <input id="feedback-name" name="nombre" maxlength="80" autocomplete="name" placeholder="Tu nombre o apodo">
+          <label for="feedback-category">Tipo de comentario</label>
+          <select id="feedback-category" name="categoria" required>
+            <option value="Sugerencia">Sugerencia</option><option value="Mejora">Mejora</option>
+            <option value="Problema">Algo no funciona</option><option value="Otro">Otro</option>
+          </select>
+          <label for="feedback-message">Mensaje</label>
+          <textarea id="feedback-message" name="mensaje" rows="5" minlength="10" maxlength="2000" required placeholder="¿Qué podemos mejorar? (mínimo 10 caracteres)"></textarea>
+          <div class="feedback-trap" aria-hidden="true"><label for="feedback-website">Sitio web</label><input id="feedback-website" name="website" tabindex="-1" autocomplete="off"></div>
+          <p class="hint">El club recibirá tu mensaje y, si lo escribes, tu nombre. No incluyas información sensible.</p>
+          <button class="btn map" type="submit" id="feedback-submit">Enviar sugerencia</button>
+          <p id="feedback-status" role="status" aria-live="polite"></p>
+          <noscript>Activa JavaScript para enviar sugerencias desde esta página.</noscript>
+        </form>
       </div>
     </div>
   </section>
@@ -566,12 +622,10 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
 
 <script src="img/Novedades/novedades.js"></script>
 <script>
-/* Pega aquí el enlace de tu Google Form entre las comillas. Si está vacío, el botón se oculta. */
-var FORMULARIO = "https://docs.google.com/forms/d/e/1FAIpQLSdPvSoRH1-zxHAOkAoN7NVK3vnA7QBxiylUvmpbdcR7nXhMGw/viewform?usp=header";
-
 /* Un registro por partido. gf = goles de Fundación MAC, gc = goles del rival.
    Cuando haya fecha, rival o enlace a la publicación se agregan aquí (fecha: "2026-09-20", rival: "Nombre"). */
 var PARTIDOS = [
+  { tipo: "km0", jornada: 1, gf: 8, gc: 2, fecha: "2026-11-04", img: "img/Km-0/j1-km.jpg" },
   { tipo: "liga", jornada: 1, gf: 0, gc: 3, img: "img/Liga Sahop/j1.jpg" },
   { tipo: "liga", jornada: 2, gf: 1, gc: 4, img: "img/Liga Sahop/j2.jpg" },
   { tipo: "liga", jornada: 3, gf: 2, gc: 2, img: "img/Liga Sahop/j3.jpg" },
@@ -590,6 +644,11 @@ var PARTIDOS = [
 (function () {
   var NOMBRES = { victoria: "Victoria", empate: "Empate", derrota: "Derrota" };
   var TIPOS = {
+    km0: {
+      eyebrow: "Betos League · KM 0 · Fútbol 7", col: "Jornada", cap: "Jornadas de Betos League · KM 0",
+      etiqueta: function (p) { return "Jornada " + p.jornada; },
+      alt: function (p, r) { return "Betos League, jornada " + p.jornada + ": " + NOMBRES[r] + " " + p.gf + " a " + p.gc; }
+    },
     liga: {
       eyebrow: "Liga Fut 9", col: "Jornada", cap: "Todas las jornadas",
       etiqueta: function (p) { return "Jornada " + p.jornada; },
@@ -661,7 +720,7 @@ var PARTIDOS = [
       pintar(b.getAttribute("data-tipo"));
     });
   });
-  pintar("liga");
+  pintar("km0");
 
   /* Carrusel: avanza solo cada 5 s, se detiene al tocarlo o con el botón */
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -688,11 +747,6 @@ var PARTIDOS = [
   reel.addEventListener("touchend", function () { setTimeout(function () { hoverPause = false; actualizar(); }, 4000); }, { passive: true });
   if (reduce) reel.style.scrollBehavior = "auto";
   actualizar();
-})();
-
-(function () {
-  var a = document.getElementById("form-link"), n = document.getElementById("form-aviso");
-  if (FORMULARIO) { a.href = FORMULARIO; } else { a.hidden = true; n.hidden = false; }
 })();
 
 /* Imágenes que rotan cada 10 segundos en "Próximo partido" cuando NO hay una imagen nueva en Novedades.
@@ -769,6 +823,23 @@ var DIFICULTADES = [
    fecha es opcional (ejemplo: fecha: "18 de octubre de 2026"). */
 var NOTICIAS = [
   {
+    titulo: "¡Bienvenido, Rogelio!",
+    resumen: "Nuevo fichaje de Fundación MAC. Dale play y conoce la presentación de Rogelio.",
+    video: "img/Noticias/Fichaje-Rogelio.mp4"
+  },
+  {
+    titulo: "Cerebro mueve el mercado",
+    resumen: "La actualidad del club, con el humor de siempre: Cerebro busca equipo y ya tenemos el comunicado.",
+    img: "img/Noticias/Cerebro-news.jpg",
+    alt: "Comunicado en tono de broma del club sobre Cerebro buscando equipo"
+  },
+  {
+    titulo: "Cerebro: GPI",
+    resumen: "El mercado de fichajes también se juega en los comentarios. Cerebro ya levantó la mano.",
+    img: "img/Noticias/cerebro-gpi.jpg",
+    alt: "Captura de una publicación de fútbol con el comentario Gpi de Cerebro"
+  },
+  {
     titulo: "Próximo destino: casa. KM 0",
     resumen: "Hay lugares que siempre serán parte de nuestra historia. En el KM 0 comenzó el proyecto de fútbol de la Fundación MAC, y hoy nos emociona anunciar nuestro regreso a la liga de fútbol 7 donde dimos nuestros primeros pasos.",
     img: "img/Noticias/Volvemos.jpg",
@@ -793,6 +864,16 @@ var NOTICIAS = [
     var card = document.createElement("article");
     card.className = "news-card";
 
+    if (n.video) {
+      var video = document.createElement("video");
+      video.className = "news-video"; video.controls = true; video.preload = "metadata";
+      video.playsInline = true; video.setAttribute("aria-label", n.titulo);
+      video.src = n.video;
+      video.textContent = "Tu navegador no puede reproducir este video.";
+      card.appendChild(video);
+      var download = document.createElement("a"); download.href = n.video;
+      download.textContent = "Abrir video de presentación"; card.appendChild(download);
+    } else {
     var btn = document.createElement("button");
     btn.type = "button"; btn.className = "thumb";
     btn.setAttribute("aria-label", "Ampliar imagen: " + n.titulo);
@@ -806,6 +887,7 @@ var NOTICIAS = [
       if (dlg.showModal) { dlg.showModal(); } else { window.open(n.img, "_blank", "noopener"); }
     });
     card.appendChild(btn);
+    }
 
     if (n.fecha) {
       var f = document.createElement("p"); f.className = "fecha-nota"; f.textContent = n.fecha; card.appendChild(f);
@@ -815,6 +897,9 @@ var NOTICIAS = [
     grid.appendChild(card);
   });
 
+  document.getElementById("mom-ampliar").addEventListener("click", function () {
+    var img = this.querySelector("img"); dImg.src = img.src; dImg.alt = img.alt; dlg.showModal();
+  });
   document.getElementById("lightbox-cerrar").addEventListener("click", function () { dlg.close(); });
   dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
 })();
@@ -1001,5 +1086,7 @@ var PREMIOS = [
   document.getElementById("gala-todos").addEventListener("click", revelarTodos);
 })();
 </script>
+<script src="js/config.js"></script>
+<script src="js/feedback.js"></script>
 </body>
 </html>

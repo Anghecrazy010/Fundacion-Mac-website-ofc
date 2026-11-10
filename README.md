@@ -1,3 +1,25 @@
+# Actualización — 9 de noviembre de 2026
+
+- **MOM:** J. Chávez, jornada 1 del 4 de noviembre, 2 goles y 2 asistencias. Sección propia con cartel ampliable.
+- **Noticias:** `Cerebro-news.jpg`, `cerebro-gpi.jpg` y presentación de Rogelio con controles de video, sin reproducción automática.
+- **Betos League · KM 0:** pestaña inicial, victoria 8–2, estadísticas independientes de Sahop y amistosos.
+- **Sugerencias:** formulario integrado; necesita completar [la configuración de Google Sheets](CONFIGURAR_GOOGLE_SHEETS.md).
+
+## Actualizar contenido
+
+- **MOM:** busca `id="mom"` en `index.html` y cambia nombre, fecha, estadísticas, descripción y ruta de imagen. El botón de ampliación toma automáticamente esa imagen. Agregar una foto a la carpeta por sí solo no actualiza el contenido.
+- **Resultados:** añade un objeto a `PARTIDOS` con `tipo: "km0"`, `jornada`, `gf`, `gc`, `fecha` e `img`. Usa `tipo: "liga"` para Sahop y `"amistoso"` para amistosos. Los registros se ordenan del más reciente al más antiguo.
+- **Noticias:** agrega un objeto al inicio de `NOTICIAS` con `titulo`, `resumen` e `img`/`alt`, o `video` para un MP4. Respeta mayúsculas y minúsculas en las rutas.
+- **Sugerencias:** solo cambia el endpoint público en `js/config.js`; los secretos se configuran en Cloudflare y Apps Script.
+
+## Entrega y comprobación
+
+No hay compilación para el frontend. Conserva `index.html`, `js/`, `img/` y `audio/` juntos. `feedback-worker/` y `google-apps-script/` contienen los componentes que debes configurar aparte. La entrega no incluye credenciales.
+
+Puedes ejecutar las pruebas del servidor con `node --test tests/feedback.test.mjs`. Usan respuestas simuladas: la verificación real en Google Sheets requiere completar la configuración.
+
+---
+
 # Fundación MAC CF
 
 Website for **Fundación MAC CF**, an amateur football club from Mazatlán, Sinaloa, founded by a group of friends in 2025. The club's motto is simple: faith, patience and good humor matter more than winning, and the goal of every match is to *connect two passes in a row*.
@@ -17,10 +39,10 @@ The site is a static, mobile-first page that presents the team, publishes club n
 - **Team presentation:** crest, story, values and a short fact sheet.
 - **Club news:** a section with the club's latest announcements, shown as image cards (for example, the new crest reveal and the president's official statement). Each card has a title and a short text, and tapping an image opens it enlarged so the text inside the graphic is easy to read on a phone. News is stored as data, newest first.
 - **Next match:** a featured pre-match image taken from the `img/Novedades/` folder. The most recently added image is shown until its match day is over; after that a "to be defined" card takes its place, showing a set of "technical difficulties" images that rotate every 10 seconds.
-- **Results:** a rotating carousel of the result graphics the club publishes on Instagram, a full results table and a win/draw/loss record. Results are split into two tabs, **Liga Fut 9** (league) and **Amistosos** (friendlies), so friendlies never affect the league record.
+- **Results:** a rotating carousel of the result graphics the club publishes on Instagram, a full results table and a win/draw/loss record. Results are split into three tabs, **Betos League · KM 0**, **Liga Fut 9 · Sahop** and **Amistosos**, so friendlies never affect the league record.
 - **Venue:** address with a link that opens directions in Google Maps.
 - **Social links:** Instagram (`@fmac_fc`) and Facebook.
-- **Feedback section:** a button that opens a Google Form where teammates leave suggestions and improvements, entering their own name (no login required).
+- **Feedback section:** an inline form with optional name, category and message; Cloudflare Worker forwards validated messages to Google Sheets.
 - **Light and dark themes** that follow the visitor's system setting.
 
 ## Page order
@@ -45,7 +67,7 @@ The site is a static, mobile-first page that presents the team, publishes club n
 | Typography | [Big Shoulders Display](https://fonts.google.com/specimen/Big+Shoulders+Display) for headings and [Barlow](https://fonts.google.com/specimen/Barlow) for text, loaded from Google Fonts |
 | Hosting | GitHub Pages |
 | Automation | Python scripts: Pillow to prepare the images and, optionally, the Google Drive API to download them |
-| Feedback storage | Google Forms, with responses saved to Google Sheets |
+| Feedback storage | Inline form → Cloudflare Worker → Apps Script → Google Sheets |
 
 ## Project structure
 
@@ -285,23 +307,9 @@ python -m http.server 8000
 
 Every `git push` to `main` updates the site automatically. A custom domain is optional and can be connected later without changing the code.
 
-## Feedback form setup
+## Configurar sugerencias
 
-The feedback section reads the form address from one variable near the top of the script:
-
-```js
-var FORMULARIO = "https://forms.gle/your-form-link";
-```
-
-While the variable is empty, the button is hidden and the section shows a "coming soon" message.
-
-Recommended Google Form fields:
-
-1. **Name**, short answer, required. Visitors type their own name, so no account is needed. The name is self-reported and not verified.
-2. **Type of comment**, multiple choice: suggestion, improvement, something is not working, other.
-3. **Message**, paragraph, required.
-
-In the form settings, leave *Collect email addresses* off and do not limit responses to one per person, since both options force a Google sign-in. Link the form to a Google Sheet from the *Responses* tab, and optionally turn on email notifications for new responses.
+El formulario está dentro de la página. Consulta [CONFIGURAR_GOOGLE_SHEETS.md](CONFIGURAR_GOOGLE_SHEETS.md) para conectar Google Sheets mediante el Worker de Cloudflare. La web continúa en GitHub Pages; ya no se usa Google Forms.
 
 ## Design notes
 

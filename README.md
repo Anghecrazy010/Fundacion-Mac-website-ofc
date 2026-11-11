@@ -1,4 +1,4 @@
-# Actualización — 9 de noviembre de 2026
+# Actualización — 11 de noviembre de 2026
 
 - **MOM:** J. Chávez, jornada 1 del 4 de noviembre, 2 goles y 2 asistencias. Sección propia con cartel ampliable.
 - **Noticias:** `Cerebro-news.jpg`, `cerebro-gpi.jpg` y presentación de Rogelio con controles de video, sin reproducción automática.

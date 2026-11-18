@@ -1,6 +1,18 @@
 /* Generado por sync_novedades.py. No lo edites a mano. */
 var NOVEDADES = [
   {
+    "archivo": "2026-11-17_Jornada-3-km.jpg",
+    "partido": "2026-11-17",
+    "titulo": "Jornada 3 km",
+    "subido": "2026-11-18T12:45:50-07:00"
+  },
+  {
+    "archivo": "2026-11-16_Jornada-12.jpg",
+    "partido": "2026-11-16",
+    "titulo": "Jornada 12",
+    "subido": "2026-11-18T12:45:41-07:00"
+  },
+  {
     "archivo": "2026-11-11_Jornada-2-km.jpg",
     "partido": "2026-11-11",
     "titulo": "Jornada 2 km",
